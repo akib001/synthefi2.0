@@ -155,7 +155,7 @@ function Layout(props) {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: 'text.primary',
+                                // color: 'text.primary',
                                 borderRadius: 1,
                                 textTransform: 'capitalize'
                             }}
