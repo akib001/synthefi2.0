@@ -3,26 +3,21 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import { styled, alpha } from '@mui/material/styles';
+import {alpha, styled} from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
-import { InputBase, Menu, MenuItem } from '@mui/material';
+import {InputBase, Menu, MenuItem} from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { mainNavbarItems } from './data/adminNavBarItems';
-import { useRouter } from 'next/router';
-import axios from 'axios';
+import {mainNavbarItems} from './data/adminNavBarItems';
+import {useRouter} from 'next/router';
 
 const drawerWidth = 240;
 
@@ -120,7 +115,6 @@ function Layout(props) {
         <div>
             <Toolbar>
                 {/*<Typography variant="h6" noWrap component="div">*/}
-                {/*  DIU Quiz*/}
                 {/*</Typography>*/}
                 <Box
                     component="img"
@@ -128,26 +122,28 @@ function Layout(props) {
                         maxWidth: 165,
                         objectFit: 'contain',
                     }}
-                    alt="Diu Quiz"
+                    alt="Synthefi 2.0"
                     src="/logoBlack.png"
                 />
             </Toolbar>
             <Divider />
             <List>
                 {mainNavbarItems.map((item, index) => (
-                    <ListItem key={item.id} disablePadding>
+                    <ListItem sx={{'& .Mui-selected': {
+                            color: 'primary.main',
+                        },}}  key={item.id} disablePadding>
                         <ListItemButton
                             selected={router.pathname == `/${item.route}`}
                             onClick={(event) => {
                                 if(item.id == 5) {
-                                    handleLogout();
+                                    // handleLogout();
                                 } else {
                                     handleListItemClick(event, item.id);
                                     router.push(item.route);
                                 }
                             }}
                         >
-                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemIcon sx={{color: `${router.pathname == `/${item.route}` ? 'primary.main' : 'white'}`}}>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.label} />
                         </ListItemButton>
                     </ListItem>
@@ -180,15 +176,7 @@ function Layout(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
+
 
                     <Box
                         sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
