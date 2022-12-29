@@ -4,18 +4,12 @@ import Layout from "../components/Layout";
 import Router from 'next/router';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import {StyledEngineProvider} from "@mui/material";
+import {ColorModeCtxProvider} from "../store/theme-context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
 
 const progress = new ProgressBar({
-    size: 4,
-    color: '#FE595E',
-    className: 'z-50',
-    delay: 100,
+    size: 4, color: '#FE595E', className: 'z-50', delay: 100,
 });
 
 // Router.events.on whenever there is a change on router it dispatches a action
@@ -25,7 +19,10 @@ Router.events.on('routeChangeError', progress.finish);
 
 
 export default function App({Component, pageProps}) {
-    return <ThemeProvider theme={darkTheme}>
-        <CssBaseline/><SnackbarProvider maxSnack={3}><Layout><Component {...pageProps} /></Layout></SnackbarProvider>
-    </ThemeProvider>
+    return <StyledEngineProvider injectFirst>
+        <ColorModeCtxProvider>
+            <CssBaseline/><SnackbarProvider
+            maxSnack={3}><Layout><Component {...pageProps} /></Layout></SnackbarProvider>
+        </ColorModeCtxProvider>
+    </StyledEngineProvider>
 }

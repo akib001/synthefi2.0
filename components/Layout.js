@@ -16,8 +16,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {mainNavbarItems} from './data/adminNavBarItems';
 import {useRouter} from 'next/router';
+import { useTheme } from '@mui/material/styles';
+import {useContext} from "react";
+import ColorModeCtx from "../store/theme-context";
 
 const drawerWidth = 240;
 
@@ -25,6 +30,9 @@ function Layout(props) {
     const { window } = props;
 
     const router = useRouter();
+    const theme = useTheme();
+
+    const colorMode = useContext(ColorModeCtx)
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -70,46 +78,6 @@ function Layout(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    }));
-
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
-
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        '& .MuiInputBase-input': {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width'),
-            width: '100%',
-            [theme.breakpoints.up('md')]: {
-                width: '20ch',
-            },
-        },
-    }));
 
     const drawer = (
         <div>
@@ -177,10 +145,27 @@ function Layout(props) {
                         <MenuIcon />
                     </IconButton>
 
-
                     <Box
                         sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
                     >
+                        {/*Dark Mode Button*/}
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'text.primary',
+                                borderRadius: 1,
+                                textTransform: 'capitalize'
+                            }}
+                        >
+                            {theme.palette.mode}
+                            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                            </IconButton>
+                        </Box>
+
                         <IconButton
                             size="large"
                             edge="end"
