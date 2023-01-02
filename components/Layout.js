@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import {alpha, styled} from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
-import {InputBase, Menu, MenuItem} from '@mui/material';
+import {InputBase, Menu, MenuItem, Typography} from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -84,15 +84,16 @@ function Layout(props) {
             <Toolbar>
                 {/*<Typography variant="h6" noWrap component="div">*/}
                 {/*</Typography>*/}
-                <Box
-                    component="img"
-                    sx={{
-                        maxWidth: 165,
-                        objectFit: 'contain',
-                    }}
-                    alt="Synthefi 2.0"
-                    src="/logoBlack.png"
-                />
+                {/*<Box*/}
+                {/*    component="img"*/}
+                {/*    sx={{*/}
+                {/*        maxWidth: 165,*/}
+                {/*        objectFit: 'contain',*/}
+                {/*    }}*/}
+                {/*    alt="Synthefi 2.0"*/}
+                {/*    src="/logoBlack.png"*/}
+                {/*/>*/}
+                <Typography variant={'h5'} sx={{alignItems: 'center', fontWeight: 'bold'}}>Synthefi</Typography>
             </Toolbar>
             <Divider />
             <List>
