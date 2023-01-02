@@ -1,11 +1,12 @@
 import * as React from 'react';
+import {useContext} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import {alpha, styled} from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
-import {InputBase, Menu, MenuItem, Typography} from '@mui/material';
+import {Menu, MenuItem, Typography} from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -20,8 +21,6 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {mainNavbarItems} from './data/adminNavBarItems';
 import {useRouter} from 'next/router';
-import { useTheme } from '@mui/material/styles';
-import {useContext} from "react";
 import ColorModeCtx from "../store/theme-context";
 
 const drawerWidth = 240;
