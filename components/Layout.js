@@ -22,6 +22,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {mainNavbarItems} from './data/adminNavBarItems';
 import {useRouter} from 'next/router';
 import ColorModeCtx from "../store/theme-context";
+import { ConnectButton } from "web3uikit";
 
 const drawerWidth = 240;
 
@@ -149,6 +150,9 @@ function Layout(props) {
                         sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
                     >
                         {/*Dark Mode Button*/}
+                        <Box mt={0.5}>
+                            <ConnectButton moralisAuth={false}/>
+                        </Box>
 
                         <Box
                             sx={{

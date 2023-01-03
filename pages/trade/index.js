@@ -1,7 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {stockPricesData} from '../../components/data/stockPricesData';
-import {DataGrid, GridToolbarQuickFilter} from "@mui/x-data-grid";
-import {Box, Container, Typography} from "@mui/material";
+import {DataGrid, GridActionsCellItem, GridToolbarQuickFilter} from "@mui/x-data-grid";
+import {Box, Button, Container, Typography} from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import {useRouter} from "next/router";
 
 function createData(id, symbol, company, poolPrice, oraclePrice, premium, logo) {
     return {
@@ -26,6 +29,7 @@ function QuickSearchToolbar() {
 
 const Trade = () => {
     const [rows, setRows] = useState([]);
+    const router = useRouter();
 
 
 
@@ -38,6 +42,23 @@ const Trade = () => {
             setRows(row);
         }
     }, []);
+
+    const buyStock = React.useCallback(
+        (params) => async () => {
+            console.log(params);
+            router.push(
+                {
+                    pathname: `trade/${params.symbol}`,
+                    query: {
+                        poolPrice: params.poolPrice
+                    },
+                },
+                undefined,
+                {shallow: true},
+            );
+        },
+        []
+    );
 
     const columns = useMemo(() => [{field: 'id', hide: true},
         {
@@ -52,12 +73,27 @@ const Trade = () => {
         {
         field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center'
     }, {
-        field: 'company', headerName: 'Company', width: 220, headerAlign: 'center', align: 'center'
-    }, {field: 'poolPrice', headerName: 'Pool Price', width: 220, headerAlign: 'center', align: 'center'}, {
-        field: 'oraclePrice', headerName: 'Oracle Price', width: 220, headerAlign: 'center', align: 'center'
+        field: 'company', headerName: 'Company', width: 150, headerAlign: 'center', align: 'center'
+    }, {field: 'poolPrice', headerName: 'Pool Price', width: 150, headerAlign: 'center', align: 'center'}, {
+        field: 'oraclePrice', headerName: 'Oracle Price', width: 150, headerAlign: 'center', align: 'center'
     }, {
-        field: 'premium', headerName: 'Premium', width: 220, headerAlign: 'center', align: 'center'
-    },], []);
+        field: 'premium', headerName: 'Premium', width: 150, headerAlign: 'center', align: 'center'
+    },
+        {
+            field: 'buyAction',
+            headerName: 'Buy Stock',
+            type: 'actions',
+            width: '80',
+            getActions: (params) => [
+                <GridActionsCellItem
+                    key={params.id}
+                    icon={<Button variant="contained" sx={{my: 2}} startIcon={<MonetizationOnIcon/>}> Buy</Button>}
+                    label="Buy"
+                    onClick={buyStock(params.row)}
+                />
+            ],
+        }
+    ], []);
 
     return (<Container maxWidth="lg">
         <Typography variant={'h3'} sx={{my: 2, ml: 1}}>Trade</Typography>

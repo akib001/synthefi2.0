@@ -6,6 +6,7 @@ import {ThemeProvider, createTheme} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {StyledEngineProvider} from "@mui/material";
 import {ColorModeCtxProvider} from "../store/theme-context";
+import {MoralisProvider} from "react-moralis";
 
 
 const progress = new ProgressBar({
@@ -21,8 +22,10 @@ Router.events.on('routeChangeError', progress.finish);
 export default function App({Component, pageProps}) {
     return <StyledEngineProvider injectFirst>
         <ColorModeCtxProvider>
-            <CssBaseline/><SnackbarProvider
-            maxSnack={3}><Layout><Component {...pageProps} /></Layout></SnackbarProvider>
+            <MoralisProvider initializeOnMount={false}>
+                <CssBaseline/><SnackbarProvider
+                maxSnack={3}><Layout><Component {...pageProps} /></Layout></SnackbarProvider>
+            </MoralisProvider>
         </ColorModeCtxProvider>
     </StyledEngineProvider>
 }

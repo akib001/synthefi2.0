@@ -14,37 +14,37 @@ export const mainNavbarItems = [
         id: 0,
         icon: <DashboardIcon />,
         label: 'My Page',
-        route: 'my-page',
+        route: '/my-page',
     },
     {
         id: 1,
         icon: <CompareArrowsIcon />,
         label: 'Trade',
-        route: 'trade',
+        route: '/trade',
     },
 
     {
         id: 2,
         icon: <CachedIcon />,
         label: 'Borrow',
-        route: 'borrow',
+        route: '/borrow',
     },
     {
         id: 3,
         icon: <TimelineIcon />,
         label: 'Farm',
-        route: 'farm',
+        route: '/farm',
     },
     {
         id: 4,
         icon: <GavelIcon />,
         label: 'Govern',
-        route: 'govern',
+        route: '/govern',
     },
     {
         id: 5,
         icon: <LogoutIcon />,
         label: 'Logout',
-        route: 'logout',
+        route: '/logout',
     },
 ]
