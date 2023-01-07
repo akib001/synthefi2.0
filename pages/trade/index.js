@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {stockPricesData} from '../../components/data/stockPricesData';
 import {DataGrid, GridActionsCellItem, GridToolbarQuickFilter} from "@mui/x-data-grid";
 import {Box, Button, Container, Typography} from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import {useRouter} from "next/router";
 
@@ -50,7 +49,7 @@ const Trade = () => {
                 {
                     pathname: `trade/${params.symbol}`,
                     query: {
-                        poolPrice: params.poolPrice
+                        id: params?.id
                     },
                 },
                 undefined,

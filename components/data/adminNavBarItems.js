@@ -13,8 +13,8 @@ export const mainNavbarItems = [
     {
         id: 0,
         icon: <DashboardIcon />,
-        label: 'My Page',
-        route: '/my-page',
+        label: 'My Account',
+        route: '/my-account',
     },
     {
         id: 1,
