@@ -70,9 +70,9 @@ const Trade = () => {
         },
 
         {
-        field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center'
+        field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center',
     }, {
-        field: 'company', headerName: 'Company', width: 150, headerAlign: 'center', align: 'center'
+        field: 'company', headerName: 'Company', width: 150,headerAlign: 'center', align: 'center'
     }, {field: 'poolPrice', headerName: 'Pool Price', width: 150, headerAlign: 'center', align: 'center'}, {
         field: 'oraclePrice', headerName: 'Oracle Price', width: 150, headerAlign: 'center', align: 'center'
     }, {

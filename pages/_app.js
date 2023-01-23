@@ -10,7 +10,7 @@ import {MoralisProvider} from "react-moralis";
 
 
 const progress = new ProgressBar({
-    size: 4, color: '#FE595E', className: 'z-50', delay: 100,
+    size: 4, color: '#66adff', className: 'z-50', delay: 100,
 });
 
 // Router.events.on whenever there is a change on router it dispatches a action
