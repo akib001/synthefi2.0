@@ -211,7 +211,7 @@ const Index = () => {
                                             sx={{m: 1}}
                                             type={'number'}
                                             InputProps={{
-                                                endAdornment: <InputAdornment position="end">
+                                                endAdornment: <InputAdornment position="end" sx={{px: 2}}>
                                                     <img src={stockMetaData?.logo}
                                                          alt={'image'}
                                                          style={{

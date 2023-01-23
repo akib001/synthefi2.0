@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Button, Container, Grid, Paper, Slider, Typography} from "@mui/material";
 import {DataGrid} from "@mui/x-data-grid";
-import {polls} from "../../components/data/poolsData";
+import {polls} from "../../components/data/pollsData";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useRouter} from "next/router";
 

@@ -65,7 +65,7 @@ const MyPage = () => {
     }
 
     return (<Container maxWidth={'md'}>
-            {stockMetaData && (<Paper elevation={3} sx={{padding: 3}}>
+            {stockMetaData && (<Paper elevation={3} sx={{padding: 3,mt: 3, borderRadius: '10px'}}>
                 <Grid container rowGap={2}>
                     <Grid container xs={12} alignItems={'center'}>
                         <Box>
@@ -91,8 +91,15 @@ const MyPage = () => {
                     <Grid item xs={12}>
                         <Typography variant={"h5"}><span style={{fontWeight: '700'}}>Buying Date: </span>07/01/2023</Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Button variant="contained" type={"submit"} fullWidth={true} startIcon={<MonetizationOnIcon/>} onClick={withdrawBalance}>Sell This Stock & Withdraw Money</Button>
+                    <Grid item xs={12} mt={1}>
+                        <Button variant={'contained'} startIcon={<MonetizationOnIcon/>}  onClick={withdrawBalance} fullWidth={true} sx={{
+                            backgroundColor: '#66adff',
+                            py: 1.4,
+                            fontSize: '1.15rem',
+                            fontWeight: '600',
+                            color: 'white',
+                            borderRadius: '10px'
+                        }}>Sell This Stock & Withdraw Money</Button>
                     </Grid>
                 </Grid>
             </Paper>)}

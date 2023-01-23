@@ -79,6 +79,8 @@ function Layout(props) {
         setMobileOpen(!mobileOpen);
     };
 
+
+
     const drawer = (
         <div>
             <Toolbar>
@@ -102,7 +104,7 @@ function Layout(props) {
                             color: 'primary.main',
                         },}}  key={item.id} disablePadding>
                         <ListItemButton
-                            selected={router.pathname == `/${item.route}`}
+                            selected={router.pathname == item.route}
                             onClick={(event) => {
                                 if(item.id == 5) {
                                     // handleLogout();
@@ -112,7 +114,7 @@ function Layout(props) {
                                 }
                             }}
                         >
-                            <ListItemIcon sx={{color: `${router.pathname == `/${item.route}` ? 'primary.main' : 'white'}`}}>{item.icon}</ListItemIcon>
+                            <ListItemIcon sx={{color: `${router.pathname == item.route ? 'primary.main' : 'white'}`}}>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.label} />
                         </ListItemButton>
                     </ListItem>

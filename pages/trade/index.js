@@ -42,7 +42,7 @@ const Trade = () => {
         }
     }, []);
 
-    const buyStock = React.useCallback(
+    const tradeStock = React.useCallback(
         (params) => async () => {
             console.log(params);
             router.push(
@@ -80,15 +80,15 @@ const Trade = () => {
     },
         {
             field: 'buyAction',
-            headerName: 'Buy Stock',
+            headerName: 'Trade Stock',
             type: 'actions',
-            width: '80',
+            width: '110',
             getActions: (params) => [
                 <GridActionsCellItem
                     key={params.id}
-                    icon={<Button variant="contained" sx={{my: 2}} startIcon={<MonetizationOnIcon/>}> Buy</Button>}
-                    label="Buy"
-                    onClick={buyStock(params.row)}
+                    icon={<Button variant="contained" sx={{my: 2}} startIcon={<MonetizationOnIcon/>}> Trade</Button>}
+                    label="Trade"
+                    onClick={tradeStock(params.row)}
                 />
             ],
         }

@@ -80,7 +80,7 @@ const CreatePoll = () => {
                                 <ListItemText primary="Suggestions"  />
                                 {rewardDistributionOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
-                            <Collapse in={assetListingOpen} timeout="auto" unmountOnExit>
+                            <Collapse in={rewardDistributionOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
                                         <ListItemText primary="Whitelist a new mAsset" />
@@ -101,7 +101,7 @@ const CreatePoll = () => {
                                 <ListItemText primary="Suggestions"  />
                                 {parametersOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
-                            <Collapse in={assetListingOpen} timeout="auto" unmountOnExit>
+                            <Collapse in={parametersOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
                                         <ListItemText primary="Whitelist a new mAsset" />
@@ -122,7 +122,7 @@ const CreatePoll = () => {
                                 <ListItemText primary="Suggestions"  />
                                 {priceOracleOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
-                            <Collapse in={assetListingOpen} timeout="auto" unmountOnExit>
+                            <Collapse in={priceOracleOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
                                         <ListItemText primary="Whitelist a new mAsset" />
@@ -159,7 +159,7 @@ const CreatePoll = () => {
                             </Grid>
                             <Grid item>
                                 <FormLabel>INFORMATION LINK (OPTIONAL)</FormLabel>
-                                <TextField fullWidth label="URL for additional information" id="fullWidth" multiline={true}  minRows={4} sx={{ mt: 1 }} />
+                                <TextField fullWidth label="URL for additional information" id="fullWidth" multiline={true}  minRows={4} sx={{ mt: 2 }} />
                             </Grid>
                             <Grid item>
                                 <FormLabel>DEPOSIT</FormLabel>
