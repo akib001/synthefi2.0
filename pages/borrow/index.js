@@ -1,11 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {stockPricesData} from '../../components/data/borrowStockPricesData';
-import {DataGrid, GridToolbarQuickFilter} from "@mui/x-data-grid";
-import {Box, Container, Typography} from "@mui/material";
+import {stockBorrowPricesData} from '../../components/data/stockBorrowPricesData';
+import {DataGrid, GridActionsCellItem, GridToolbarQuickFilter} from "@mui/x-data-grid";
+import {Box, Button, Container, Typography} from "@mui/material";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import {useRouter} from "next/router";
 
-function createData(id, symbol, company, poolPrice, oraclePrice, premium, logo, minColRatio) {
+function createData(id, symbol, company, poolPrice, oraclePrice, premium, logo, minCol) {
     return {
-        id, symbol, company, poolPrice, oraclePrice, premium, logo, minColRatio
+        id, symbol, company, poolPrice, oraclePrice, premium, logo, minCol
     };
 }
 
@@ -24,20 +26,38 @@ function QuickSearchToolbar() {
     );
 }
 
-const Borrow = () => {
+const Trade = () => {
     const [rows, setRows] = useState([]);
+    const router = useRouter();
 
 
 
     useEffect(() => {
         let row = [];
-        if (stockPricesData?.length > 0) {
-            stockPricesData?.map((item) => {
-                row.push(createData(item.id, item.symbol, item.company, item.poolPrice, item.oraclePrice, item.premium, item.logo, item.minColRatio));
+        if (stockBorrowPricesData?.length > 0) {
+            stockBorrowPricesData?.map((item) => {
+                row.push(createData(item.id, item.symbol, item.company, item.poolPrice, item.oraclePrice, item.premium, item.logo, item.minCol));
             });
             setRows(row);
         }
     }, []);
+
+    const borrowStock = React.useCallback(
+        (params) => async () => {
+            console.log(params);
+            router.push(
+                {
+                    pathname: `borrow/${params.symbol}`,
+                    query: {
+                        id: params?.id
+                    },
+                },
+                undefined,
+                {shallow: true},
+            );
+        },
+        []
+    );
 
     const columns = useMemo(() => [{field: 'id', hide: true},
         {
@@ -50,16 +70,31 @@ const Borrow = () => {
         },
 
         {
-            field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center'
-        }, {
-            field: 'company', headerName: 'Company', width: 180, headerAlign: 'center', align: 'center'
-        }, {field: 'poolPrice', headerName: 'Pool Price', width: 180, headerAlign: 'center', align: 'center'}, {
-            field: 'oraclePrice', headerName: 'Oracle Price', width: 180, headerAlign: 'center', align: 'center'
-        }, {
-            field: 'premium', headerName: 'Premium', width: 180, headerAlign: 'center', align: 'center'
-        },{
-            field: 'minColRatio', headerName: 'Min. Col. Ratio', width: 180, headerAlign: 'center', align: 'center'
-        },], []);
+        field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center'
+    }, {
+        field: 'company', headerName: 'Company', width: 150, headerAlign: 'center', align: 'center'
+    }, {field: 'poolPrice', headerName: 'Pool Price', width: 150, headerAlign: 'center', align: 'center'}, {
+        field: 'oraclePrice', headerName: 'Oracle Price', width: 150, headerAlign: 'center', align: 'center'
+    }, {
+        field: 'premium', headerName: 'Premium', width: 120, headerAlign: 'center', align: 'center'
+    }, {
+            field: 'minCol', headerName: 'Min. Col. Ratio', width: 120, headerAlign: 'center', align: 'center'
+        },
+        {
+            field: 'buyAction',
+            headerName: 'Borrow Stock',
+            type: 'actions',
+            width: '110',
+            getActions: (params) => [
+                <GridActionsCellItem
+                    key={params.id}
+                    icon={<Button variant="contained" sx={{my: 2}} startIcon={<MonetizationOnIcon/>}>Borrow</Button>}
+                    label="Borrow"
+                    onClick={borrowStock(params.row)}
+                />
+            ],
+        }
+    ], []);
 
     return (<Container maxWidth="lg">
         <Typography variant={'h3'} sx={{my: 2, ml: 1}}>Borrow</Typography>
@@ -77,4 +112,4 @@ const Borrow = () => {
     </Container>);
 };
 
-export default Borrow;
+export default Trade;
