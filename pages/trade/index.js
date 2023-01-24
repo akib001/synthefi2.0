@@ -5,9 +5,9 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import {useRouter} from "next/router";
 
-function createData(id, symbol, company, poolPrice, oraclePrice, premium, logo) {
+function createData(id, symbol, company, poolPrice, oraclePrice, fee, logo) {
     return {
-        id, symbol, company, poolPrice, oraclePrice, premium, logo
+        id, symbol, company, poolPrice, oraclePrice, fee, logo
     };
 }
 
@@ -36,7 +36,7 @@ const Trade = () => {
         let row = [];
         if (stockPricesData?.length > 0) {
             stockPricesData?.map((item) => {
-                row.push(createData(item.id, item.symbol, item.company, item.poolPrice, item.oraclePrice, item.premium, item.logo));
+                row.push(createData(item.id, item.symbol, item.company, item.poolPrice, item.oraclePrice, item.fee, item.logo));
             });
             setRows(row);
         }
@@ -72,17 +72,17 @@ const Trade = () => {
         {
         field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center',
     }, {
-        field: 'company', headerName: 'Company', width: 150,headerAlign: 'center', align: 'center'
+        field: 'company', headerName: 'Company', width: 180,headerAlign: 'center', align: 'center'
     }, {field: 'poolPrice', headerName: 'Pool Price', width: 150, headerAlign: 'center', align: 'center'}, {
-        field: 'oraclePrice', headerName: 'Oracle Price', width: 150, headerAlign: 'center', align: 'center'
+        field: 'oraclePrice', headerName: 'Oracle Price', width: 180, headerAlign: 'center', align: 'center'
     }, {
-        field: 'premium', headerName: 'Premium', width: 150, headerAlign: 'center', align: 'center'
+        field: 'fee', headerName: 'Fee', width: 150, headerAlign: 'center', align: 'center'
     },
         {
             field: 'buyAction',
             headerName: 'Trade Stock',
             type: 'actions',
-            width: '110',
+            width: '160',
             getActions: (params) => [
                 <GridActionsCellItem
                     key={params.id}

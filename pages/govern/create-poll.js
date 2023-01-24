@@ -41,100 +41,85 @@ const CreatePoll = () => {
                             <Collapse in={suggestionsOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Submit text poll" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Whitelist a new synAsset" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Whitelist a Pre-IPO synAsset" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Spend community pool" />
                                     </ListItemButton>
                                 </List>
                             </Collapse>
 
                             <ListItemButton onClick={() => setAssetListingOpen(!assetListingOpen)} sx={{'& .MuiListItemText-primary': {fontSize: '1.75rem'}}}>
-                                <ListItemText primary="Suggestions"  />
+                                <ListItemText primary="Asset Listing"  />
                                 {assetListingOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
                             <Collapse in={assetListingOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Register whitelist parameters" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Register Pre-IPO parameters" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Delist collateral" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Delist synAsset" />
                                     </ListItemButton>
                                 </List>
                             </Collapse>
 
                             <ListItemButton onClick={() => setRewardDistributionOpen(!rewardDistributionOpen)} sx={{'& .MuiListItemText-primary': {fontSize: '1.75rem'}}}>
-                                <ListItemText primary="Suggestions"  />
+                                <ListItemText primary="Reward Distribution Ratio"  />
                                 {rewardDistributionOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
                             <Collapse in={rewardDistributionOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
-                                    </ListItemButton>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
-                                    </ListItemButton>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
-                                    </ListItemButton>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Modify weight parameter" />
                                     </ListItemButton>
                                 </List>
                             </Collapse>
 
                             <ListItemButton onClick={() => setParametersOpen(!parametersOpen)} sx={{'& .MuiListItemText-primary': {fontSize: '1.75rem'}}}>
-                                <ListItemText primary="Suggestions"  />
+                                <ListItemText primary="Parameters"  />
                                 {parametersOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
                             <Collapse in={parametersOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Modify mint parameters" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Modify governance parameters" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Modify poll parameters" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Modify collateral parameters" />
                                     </ListItemButton>
                                 </List>
                             </Collapse>
 
                             <ListItemButton onClick={() => setPriceOracleOpen(!priceOracleOpen)} sx={{'& .MuiListItemText-primary': {fontSize: '1.75rem'}}}>
-                                <ListItemText primary="Suggestions"  />
+                                <ListItemText primary="Price Oracle"  />
                                 {priceOracleOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
                             <Collapse in={priceOracleOpen} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Update Price Priority" />
                                     </ListItemButton>
                                     <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
-                                    </ListItemButton>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
-                                    </ListItemButton>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemText primary="Whitelist a new mAsset" />
+                                        <ListItemText primary="Remove Price" />
                                     </ListItemButton>
                                 </List>
                             </Collapse>
@@ -163,7 +148,7 @@ const CreatePoll = () => {
                             </Grid>
                             <Grid item>
                                 <FormLabel>DEPOSIT</FormLabel>
-                                <TextField fullWidth label=""  value={'1,000.000000 MIR'} id="fullWidth"  sx={{ mt: 1 }} />
+                                <TextField fullWidth label=""  value={'1,000.000000 SYN'} id="fullWidth"  sx={{ mt: 1 }} />
                             </Grid>
                             <Grid item alignSelf={'center'} mt={1}>
                                 <Button variant={'contained'} size={'large'}  sx={{backgroundColor: '#66adff', py: 1.5,px: 10, fontSize: '1.15rem', fontWeight: '600', color: 'white', borderRadius: '10px'}}>Connect Wallet</Button>
