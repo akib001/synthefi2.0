@@ -28,6 +28,7 @@ import Divider from "@mui/material/Divider";
 const Index = () => {
     const router = useRouter();
     const [amount, setAmount] = useState(0);
+    const [borrowAmount, setBorrowAmount] = useState(0);
     const [stockMetaData, setStockMetaData] = useState(null);
     const [ethPrice, setEthPrice] = useState(0);
     const [value, setValue] = useState(140);
@@ -64,12 +65,13 @@ const Index = () => {
                 await listenForTransactionMine(transactionResponse, provider);
                 enqueueSnackbar('Transaction Completed!', {variant: 'success'});
                 setAmount(0);
+                setBorrowAmount(0);
                 window.localStorage.setItem('id', id);
                 console.log(`Done`);
             } catch (err) {
-                enqueueSnackbar('Transaction Completed!', {variant: 'success'});
                 setAmount(0);
-                window.localStorage.setItem('id', id);
+                setBorrowAmount(0);
+                enqueueSnackbar('Transaction Failed!', {variant: 'error'});
                 console.log(err)
             }
 
@@ -90,7 +92,6 @@ const Index = () => {
 
     const submitHandler = (e) => {
         event.preventDefault();
-        console.log(amount)
         fund(amount);
     }
 
@@ -106,9 +107,20 @@ const Index = () => {
     };
 
     const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        const sliderValue = event.target.value;
+        setValue(Number(sliderValue));
         setRedSliderTrack(Number(event.target.value) <= 130 ? true : false);
     };
+
+    const handleAmountChange = (event) => {
+        const amount = event.target.value;
+        setAmount(amount);
+        const splitStockPrice = stockMetaData?.oraclePrice?.split(" ");
+        const stockPrice = splitStockPrice?.[0];
+        const increasedStockPrice = Number(stockPrice) * (Number(value)/100);
+        setBorrowAmount(amount / increasedStockPrice);
+    };
+
 
 
     return (<Container maxWidth="lg">
@@ -123,29 +135,6 @@ const Index = () => {
 
                                     <Grid item xs={12} sx={{display: 'flex', alignItems: 'center'}}>
                                         <LooksOneIcon/>
-                                        <Typography variant={"h5"} ml={1}>
-                                            Choose a Collateral Asset:
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <TextField id="amount" fullWidth={true}
-                                                   onChange={(e) => setAmount(e.target.value)}
-                                                   type="number" label="Enter Amount"
-                                                   sx={{ m: 1}}
-                                                   variant="outlined"
-                                                   InputProps={{
-                                                       startAdornment: <InputAdornment position="start">
-                                                           $ </InputAdornment>,
-                                                   }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} my={2}>
-                                        <Divider/>
-                                    </Grid>
-
-                                    <Grid item xs={12} sx={{display: 'flex', alignItems: 'center'}}>
-                                        <LooksTwoIcon/>
                                         <Typography variant={"h5"} ml={1}>
                                             Set a Collateral Ratio
                                         </Typography>
@@ -193,6 +182,33 @@ const Index = () => {
                                         </Grid>
                                     </Grid>
 
+
+                                    <Grid item xs={12} my={2}>
+                                        <Divider/>
+                                    </Grid>
+
+
+                                    <Grid item xs={12} sx={{display: 'flex', alignItems: 'center'}}>
+                                        <LooksTwoIcon/>
+                                        <Typography variant={"h5"} ml={1}>
+                                            Choose a Collateral Asset:
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField id="amount" fullWidth={true}
+                                                   onChange={handleAmountChange}
+                                                   value={amount}
+                                                   type="number" label="Enter Amount"
+                                                   sx={{ m: 1}}
+                                                   variant="outlined"
+                                                   InputProps={{
+                                                       startAdornment: <InputAdornment position="start">
+                                                           $ </InputAdornment>,
+                                                   }}
+                                        />
+                                    </Grid>
+
                                     <Grid item xs={12} my={2}>
                                         <Divider/>
                                     </Grid>
@@ -206,6 +222,7 @@ const Index = () => {
                                     <Grid item xs={12}>
                                         <TextField
                                             label=""
+                                            value={borrowAmount}
                                             fullWidth={true}
                                             id="outlined-start-adornment"
                                             sx={{m: 1}}
@@ -226,7 +243,7 @@ const Index = () => {
                                     </Grid>
 
                                     <Grid item xs={12} mt={1}>
-                                        <Button variant={'contained'} fullWidth={true} sx={{
+                                        <Button variant={'contained'} type={'submit'} fullWidth={true} sx={{
                                             backgroundColor: '#66adff',
                                             py: 1.4,
                                             fontSize: '1.15rem',

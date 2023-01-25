@@ -15,7 +15,6 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import {ethers} from '../../../ether/ethers-5.6.esm.min';
 import {abi, contractAddress} from '../../../ether/constants';
 import {useSnackbar} from "notistack";
@@ -39,11 +38,7 @@ const Index = () => {
         setValue(newValue);
     };
 
-
-    console.log('stockMetaData', stockMetaData);
-
     useEffect(() => {
-        console.log('id', id);
         const stockMetaData = stockPricesData?.find((item) => item.id == Number(id));
         setStockMetaData(stockMetaData);
 
@@ -71,10 +66,12 @@ const Index = () => {
                 await listenForTransactionMine(transactionResponse, provider);
                 enqueueSnackbar('Transaction Completed!', {variant: 'success'});
                 setAmount(0);
+                setStockAmount(0);
                 window.localStorage.setItem('id', id);
                 console.log(`Done`);
             } catch (err) {
                 setAmount(0);
+                enqueueSnackbar('Transaction Failed!', {variant: 'error'});
                 console.log(err)
             }
 
@@ -103,7 +100,7 @@ const Index = () => {
     }
 
     const submitHandler = (e) => {
-        event.preventDefault();
+        e.preventDefault();
         console.log(amount)
         fund(amount);
     }
@@ -138,7 +135,7 @@ const Index = () => {
 
                             <Grid item xs={12}>
                                 <TextField id="amount" fullWidth={true}
-                                           defaultValue={0}
+                                           value={amount}
                                            onChange={amountChangeHandler}
                                            type="number" label="Enter Amount"
                                            variant="outlined"
@@ -183,7 +180,7 @@ const Index = () => {
                             </Grid>
 
                             <Grid item xs={12} mt={1}>
-                                <Button variant={'contained'} fullWidth={true} sx={{
+                                <Button variant={'contained'} type={"submit"} fullWidth={true} sx={{
                                     backgroundColor: '#66adff',
                                     py: 1.4,
                                     fontSize: '1.15rem',
@@ -244,10 +241,11 @@ const Index = () => {
                                 <Grid item xs={12}>
                                     <TextField id="amount" fullWidth={true}
                                                onChange={(e) => setAmount(e.target.value)}
+                                               value={amount}
                                                type="number" label="Enter Amount"
                                                variant="outlined"
                                                InputProps={{
-                                                   startAdornment: <InputAdornment position="start">
+                                                   endAdornment: <InputAdornment position="end">
                                                        USD </InputAdornment>,
                                                }}
                                     />
@@ -255,18 +253,16 @@ const Index = () => {
 
 
                                 <Grid item xs={12} mt={1}>
-                                    <Button variant={'contained'} fullWidth={true} sx={{
+                                    <Button variant={'contained'} type={"submit"} fullWidth={true} sx={{
                                         backgroundColor: '#66adff',
                                         py: 1.4,
                                         fontSize: '1.15rem',
                                         fontWeight: '600',
                                         color: 'white',
                                         borderRadius: '10px'
-                                    }}>Buy Stock</Button>
+                                    }}>Sell Stock</Button>
                                 </Grid>
-
                             </Grid>)}
-
                     </form>
                 </Paper>
             </Grid>
@@ -318,7 +314,6 @@ const Index = () => {
                 </Paper>
             </Grid>
         </Grid>)}
-
     </Container>);
 };
 
