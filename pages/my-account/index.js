@@ -25,10 +25,29 @@ const MyPage = () => {
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const balance = await provider.getBalance(contractAddress);
-            console.log(`Balance ${balance} ETH`)
-            setEthPrice(balance);
+            console.log(`Balance ${balance} ETH`);
+            setEthPrice(Number(balance));
         }
     }
+
+    async function fund() {
+        const ethAmount = document.getElementById('ethAmount').value;
+        console.log(`Funding with ${ethAmount}...`)
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, abi, signer);
+            try {
+                const transactionResponse = await contract.fund({ value: ethers.utils.parseEther(ethAmount) });
+                await listenForTransactionMine(transactionResponse, provider);
+                console.log(`Done`);
+            } catch (err) {
+                console.log(err)
+            }
+
+        }
+    }
+
 
     async function withdrawBalance() {
         console.log(`Withdrawing...`)
@@ -64,6 +83,8 @@ const MyPage = () => {
         })
     }
 
+    console.log(ethPrice);
+
     return (<Container maxWidth={'md'}>
             {stockMetaData && (<Paper elevation={3} sx={{padding: 3,mt: 3, borderRadius: '10px'}}>
                 <Grid container rowGap={2}>
@@ -78,13 +99,13 @@ const MyPage = () => {
                         <Typography variant={"h5"}><span style={{fontWeight: '700'}}>Stock Brought At: </span>{stockMetaData[0]?.poolPrice}</Typography>
                     </Grid>
                     <Grid container xs={12}>
-                        <Box>
+                        <Box>       smefDashboard
                             <Typography variant={"h5"} sx={{fontWeight: '700'}}>Current Stock Price:</Typography>
                         </Box>
                         <Box ml={2}>
-                            {ethPrice ? (<Button variant={'contained'} color={'secondary'} onClick={getBalance}>
+                            {ethPrice ?  (<Typography variant={"h5"}>{ethPrice} Wei</Typography>) : (<Button variant={'contained'} color={'secondary'} onClick={getBalance}>
                                 Fetch Price
-                            </Button>) : (<Typography variant={"h5"}>{ethPrice} ETH</Typography>)}
+                            </Button>)}
 
                         </Box>
                     </Grid>

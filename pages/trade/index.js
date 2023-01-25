@@ -62,7 +62,7 @@ const Trade = () => {
     const columns = useMemo(() => [{field: 'id', hide: true},
         {
             field: 'logo',
-            headerName: '',
+            headerName: 'Stock',
             width: 100,
             headerAlign: 'center',
             align: 'center',
@@ -70,11 +70,11 @@ const Trade = () => {
         },
 
         {
-        field: 'symbol', headerName: 'Ticker', width: 150, headerAlign: 'center', align: 'center',
+        field: 'symbol', headerName: 'Ticker', width: 110, headerAlign: 'center', align: 'center',
     }, {
         field: 'company', headerName: 'Company', width: 180,headerAlign: 'center', align: 'center'
-    }, {field: 'poolPrice', headerName: 'Pool Price', width: 150, headerAlign: 'center', align: 'center'}, {
-        field: 'oraclePrice', headerName: 'Oracle Price', width: 180, headerAlign: 'center', align: 'center'
+    }, {field: 'poolPrice', headerName: 'Pool Price', width: 130, headerAlign: 'center', align: 'center'}, {
+        field: 'oraclePrice', headerName: 'Oracle Price', width: 130, headerAlign: 'center', align: 'center'
     }, {
         field: 'fee', headerName: 'Fee', width: 150, headerAlign: 'center', align: 'center'
     },
