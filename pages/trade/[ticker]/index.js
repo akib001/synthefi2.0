@@ -250,8 +250,6 @@ const Index = () => {
                                                }}
                                     />
                                 </Grid>
-
-
                                 <Grid item xs={12} mt={1}>
                                     <Button variant={'contained'} type={"submit"} fullWidth={true} sx={{
                                         backgroundColor: '#66adff',

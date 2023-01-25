@@ -7,7 +7,6 @@ import {abi, contractAddress} from "../../ether/constants";
 import {useSnackbar} from "notistack";
 
 
-
 const MyPage = () => {
     const [stockMetaData, setStockMetaData] = useState(null);
     const [ethPrice, setEthPrice] = useState(0);
@@ -15,18 +14,21 @@ const MyPage = () => {
 
     useEffect(() => {
         const id = window.localStorage.getItem('id');
-        const stockData = stockPricesData?.filter((item) => item.id == Number(id));
-        setStockMetaData(stockData);
-    },[])
-
-    console.log('stockData', stockMetaData);
+        if (id) {
+            const stockData = stockPricesData?.filter((item) => item.id == Number(id));
+            setStockMetaData(stockData);
+        }
+    }, [])
 
     async function getBalance() {
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const balance = await provider.getBalance(contractAddress);
-            console.log(`Balance ${balance} ETH`);
-            setEthPrice(Number(balance));
+            console.log(`Balance ${balance} in Wei`);
+            const ethPrice = ethers.utils.formatEther(balance);
+            console.log('ethPrice', ethPrice)
+
+            setEthPrice(Number(ethPrice));
         }
     }
 
@@ -38,7 +40,7 @@ const MyPage = () => {
             const signer = provider.getSigner();
             const contract = new ethers.Contract(contractAddress, abi, signer);
             try {
-                const transactionResponse = await contract.fund({ value: ethers.utils.parseEther(ethAmount) });
+                const transactionResponse = await contract.fund({value: ethers.utils.parseEther(ethAmount)});
                 await listenForTransactionMine(transactionResponse, provider);
                 console.log(`Done`);
             } catch (err) {
@@ -83,37 +85,40 @@ const MyPage = () => {
         })
     }
 
-    console.log(ethPrice);
-
     return (<Container maxWidth={'md'}>
-            {stockMetaData && (<Paper elevation={3} sx={{padding: 3,mt: 3, borderRadius: '10px'}}>
+            {stockMetaData ? (<Paper elevation={3} sx={{padding: 3, mt: 3, borderRadius: '10px'}}>
                 <Grid container rowGap={2}>
                     <Grid container xs={12} alignItems={'center'}>
                         <Box>
                             <img src={stockMetaData[0]?.logo}
-                                 alt={'tesla stocks'} style={{height: '100%', width: '100%', objectFit: 'contain'}} />
+                                 alt={'tesla stocks'} style={{height: '100%', width: '100%', objectFit: 'contain'}}/>
                         </Box>
                         <Typography variant={"h4"} ml={2}>{stockMetaData[0]?.company} Stock</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant={"h5"}><span style={{fontWeight: '700'}}>Stock Brought At: </span>{stockMetaData[0]?.poolPrice}</Typography>
+                        <Typography variant={"h5"}><span
+                            style={{fontWeight: '700'}}>Stock Brought At: </span>{stockMetaData[0]?.poolPrice}
+                        </Typography>
                     </Grid>
                     <Grid container xs={12}>
-                        <Box>       smefDashboard
+                        <Box>
                             <Typography variant={"h5"} sx={{fontWeight: '700'}}>Current Stock Price:</Typography>
                         </Box>
                         <Box ml={2}>
-                            {ethPrice ?  (<Typography variant={"h5"}>{ethPrice} Wei</Typography>) : (<Button variant={'contained'} color={'secondary'} onClick={getBalance}>
-                                Fetch Price
-                            </Button>)}
+                            {ethPrice ? (<Typography variant={"h5"}>{ethPrice} ETH</Typography>) : (
+                                <Button variant={'contained'} color={'secondary'} onClick={getBalance}>
+                                    Fetch Price
+                                </Button>)}
 
                         </Box>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant={"h5"}><span style={{fontWeight: '700'}}>Buying Date: </span>07/01/2023</Typography>
+                        <Typography variant={"h5"}><span
+                            style={{fontWeight: '700'}}>Buying Date: </span>07/01/2023</Typography>
                     </Grid>
                     <Grid item xs={12} mt={1}>
-                        <Button variant={'contained'} startIcon={<MonetizationOnIcon/>}  onClick={withdrawBalance} fullWidth={true} sx={{
+                        <Button variant={'contained'} startIcon={<MonetizationOnIcon/>} onClick={withdrawBalance}
+                                fullWidth={true} sx={{
                             backgroundColor: '#66adff',
                             py: 1.4,
                             fontSize: '1.15rem',
@@ -123,10 +128,12 @@ const MyPage = () => {
                         }}>Sell This Stock & Withdraw Money</Button>
                     </Grid>
                 </Grid>
-            </Paper>)}
+            </Paper>) :  <Typography variant={'h4'} textAlign={'center'} mt={4}>
+                No Purchase History
+            </Typography>}
 
-    </Container>
-);
+        </Container>
+    );
 };
 
 export default MyPage;

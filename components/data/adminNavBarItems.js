@@ -41,10 +41,4 @@ export const mainNavbarItems = [
         label: 'Govern',
         route: '/govern',
     },
-    {
-        id: 5,
-        icon: <LogoutIcon />,
-        label: 'Logout',
-        route: '/logout',
-    },
 ]
